@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node screenshot.mjs http://localhost:3000 round1)",
+      "Bash(node screenshot.mjs http://localhost:3000 current)",
+      "Bash(node screenshot.mjs http://localhost:3000 round2)",
+      "Bash(node screenshot.mjs http://localhost:3000/body.html body-r1)",
+      "Bash(node screenshot.mjs http://localhost:3000/body.html body-r2)",
+      "Bash(node screenshot.mjs http://localhost:3000/projects.html final)",
+      "Bash(netstat -ano)",
+      "Bash(cmd /c \"taskkill /F /IM node.exe\")"
+    ]
+  }
+}

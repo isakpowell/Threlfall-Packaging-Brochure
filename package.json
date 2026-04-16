@@ -1,0 +1,19 @@
+{
+  "name": "threlfall-brochure",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Advance Chemicals – Threlfall Packaging Range PDF Brochure",
+  "scripts": {
+    "generate": "npx tsx generate.jsx",
+    "parse": "node src/parseHTML.js"
+  },
+  "dependencies": {
+    "@react-pdf/renderer": "^3.4.4",
+    "node-html-parser": "^6.1.13",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.41.0",
+    "tsx": "^4.7.1"
+  }
+}

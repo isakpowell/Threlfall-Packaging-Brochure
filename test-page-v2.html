@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no,address=no,email=no,date=no">
+  <title>Catalog V2 — Design Exploration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!--
+    Outfit     → headings, product names, UI — geometric, modern, confident
+    Nunito Sans → descriptions, body copy — humanist, warm, readable
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Chrome auto-annotation kill switch */
+    a, a:link, a:visited, a:-webkit-any-link { color: inherit !important; text-decoration: none !important; pointer-events: none; }
+    .card-desc, .card-desc * { color: #4A5568 !important; text-decoration: none !important; }
+
+    :root {
+      --cat: #155FA0;            /* overridden per page */
+      --cat-pale: #EBF3FB;
+      --page:  #FFFFFF;
+      --ink:   #0F172A;
+      --ink-2: #334155;
+      --muted: #94A3B8;
+      --rule:  #E2E8F0;
+      --f-head: 'Outfit', system-ui, sans-serif;
+      --f-body: 'Nunito Sans', system-ui, sans-serif;
+    }
+
+    body {
+      background: #D1D5DB;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px;
+      min-height: 100vh;
+    }
+
+    /* ── A4 PAGE ── */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background: var(--page);
+      box-shadow: 0 8px 48px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* ── TOP ACCENT BAND ──
+       Thin bold stripe in category color
+    */
+    .pg-band {
+      height: 6mm;
+      background: var(--cat);
+      flex-shrink: 0;
+    }
+
+    /* ── CATEGORY HEADER ──
+       White bg, large heading, right-aligned logo
+       Height: 6mm band + 8mm top pad + ~18mm heading + 3mm gap + ~9mm tagline + 7mm bottom = ~51mm
+    */
+    .pg-head {
+      flex-shrink: 0;
+      padding: 8mm 12mm 7mm;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .pg-head-left { flex: 1; }
+
+    .pg-cat-name {
+      font-family: var(--f-head);
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: 3mm;
+    }
+
+    /* Colored rule under heading */
+    .pg-cat-rule {
+      width: 40px;
+      height: 3px;
+      background: var(--cat);
+      border-radius: 2px;
+      margin-bottom: 3mm;
+    }
+
+    .pg-tagline {
+      font-family: var(--f-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-2);
+      line-height: 1.5;
+      max-width: 110mm;
+      transform: translateZ(0);
+      isolation: isolate;
+    }
+    .pg-tagline, .pg-tagline * { color: var(--ink-2) !important; text-decoration: none !important; }
+
+    .pg-logo {
+      height: 20px;
+      opacity: 0.6;
+      margin-top: 2mm;
+      flex-shrink: 0;
+    }
+
+    /* ── PRODUCT GRID ──
+       297 - 6(band) - 51(head) - 10(foot) = 230mm
+       grid pad 3mm t/b = 6mm → 224mm
+       3 cards + 2×3mm gaps = 3h + 6 = 224 → h = 72.7mm → 72mm
+       check: 3×72 + 6 + 6 = 228mm  (2mm absorbed by flex)
+    */
+    .pg-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3mm;
+      padding: 3mm 12mm;
+      align-content: start;
+      overflow: hidden;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--cat);
+      border-radius: 0 6px 6px 0;
+      height: 72mm;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Image zone */
+    .card-img {
+      width: 64mm;
+      flex-shrink: 0;
+      background: var(--cat-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5mm;
+    }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .card-ph {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      opacity: 0.2;
+    }
+
+    /* Vertical separator */
+    .card-sep {
+      width: 1px;
+      background: var(--rule);
+      flex-shrink: 0;
+    }
+
+    /* Content */
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 5mm 6mm 4.5mm;
+      min-width: 0;
+    }
+
+    /* Name + SKU */
+    .card-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 4mm;
+      margin-bottom: 1.5mm;
+      flex-shrink: 0;
+    }
+
+    .card-name {
+      font-family: var(--f-head);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .card-sku {
+      font-family: var(--f-head);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--cat);
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+      white-space: nowrap;
+      background: var(--cat-pale);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    /* Category label */
+    .card-cat-label {
+      font-family: var(--f-body);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3mm;
+      flex-shrink: 0;
+    }
+
+    /* Description */
+    .card-desc {
+      font-family: var(--f-body);
+      font-size: 12px;
+      color: #4A5568;
+      line-height: 1.65;
+      overflow: hidden;
+      transform: translateZ(0);
+      isolation: isolate;
+    }
+
+    /* Sizes */
+    .card-foot {
+      display: flex;
+      align-items: center;
+      gap: 2mm;
+      margin-top: auto;
+      padding-top: 3mm;
+      flex-shrink: 0;
+    }
+
+    .card-foot-label {
+      font-family: var(--f-body);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 1mm;
+    }
+
+    .t-size {
+      font-family: var(--f-head);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cat);
+      border: 1.5px solid var(--cat);
+      border-radius: 20px;
+      padding: 3px 10px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* ── PAGE FOOTER ── */
+    .pg-foot {
+      height: 10mm;
+      flex-shrink: 0;
+      padding: 0 12mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--rule);
+    }
+    .pg-foot-web {
+      font-family: var(--f-body);
+      font-size: 8px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .pg-foot-num {
+      font-family: var(--f-head);
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: none; padding: 0; }
+      .page { box-shadow: none; }
+      @page { size: A4 portrait; margin: 0; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page" style="--cat:#155FA0; --cat-pale:#EBF3FB;">
+
+  <!-- TOP BAND -->
+  <div class="pg-band"></div>
+
+  <!-- HEADER -->
+  <div class="pg-head">
+    <div class="pg-head-left">
+      <div class="pg-cat-name">Degreasers &amp; Cleaners</div>
+      <div class="pg-cat-rule"></div>
+      <div class="pg-tagline">Powerful formulas engineered to cut through industrial grease, oils and stubborn soils.</div>
+    </div>
+    <img class="pg-logo" src="ADVlogowhite background.png" alt="Advance Chemicals"
+         onerror="this.style.display='none'">
+  </div>
+
+  <!-- PRODUCT CARDS -->
+  <div class="pg-grid">
+
+    <!-- CARD 1 -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://advancechemicals.com.au/wp-content/uploads/2022/09/777-5-Sabre-min-510x510.png"
+             alt="Sabre"
+             onerror="this.parentElement.innerHTML='<div class=card-ph><svg width=36 height=36 viewBox=\'0 0 24 24\' fill=none stroke=\'#155FA0\' stroke-width=\'1\'><rect x=\'4\' y=\'2\' width=\'13\' height=\'20\' rx=\'2\'/><path d=\'M7 2v5h7V2\'/></svg></div>'">
+      </div>
+      <div class="card-sep"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="card-name">Sabre</span>
+          <span class="card-sku">LC777</span>
+        </div>
+        <div class="card-cat-label">Machine Detergent</div>
+        <div class="card-desc" translate="no" spellcheck="false">Chlorinated caustic machine detergent for commercial kitchens. Economical dosing cuts baked-on grease and heavy food residues with minimal effort and outstanding result.</div>
+        <div class="card-foot">
+          <span class="card-foot-label">Sizes</span>
+          <span class="t-size">5L</span>
+          <span class="t-size">25L</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://advancechemicals.com.au/wp-content/uploads/2022/09/0e60fb41-7286-4d5d-aa5b-2648e5de834e-510x510.png"
+             alt="Grill Supreme"
+             onerror="this.parentElement.innerHTML='<div class=card-ph><svg width=36 height=36 viewBox=\'0 0 24 24\' fill=none stroke=\'#155FA0\' stroke-width=\'1\'><rect x=\'4\' y=\'2\' width=\'13\' height=\'20\' rx=\'2\'/><path d=\'M7 2v5h7V2\'/></svg></div>'">
+      </div>
+      <div class="card-sep"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="card-name">Grill Supreme</span>
+          <span class="card-sku">LC305</span>
+        </div>
+        <div class="card-cat-label">Caustic Cleaner</div>
+        <div class="card-desc" translate="no" spellcheck="false">Powerful caustic cleaner for ovens, cooking ranges, hot plates and deep fryers. Rapidly dissolves stubborn baked-on fats and carbon deposits with minimal manual effort.</div>
+        <div class="card-foot">
+          <span class="card-foot-label">Sizes</span>
+          <span class="t-size">5L</span>
+          <span class="t-size">25L</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 — placeholder image -->
+    <div class="card">
+      <div class="card-img">
+        <div class="card-ph">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#155FA0" stroke-width="0.9">
+            <rect x="4" y="2" width="13" height="20" rx="2"/>
+            <path d="M7 2v5h7V2M12 11v5M10 13h4"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-sep"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="card-name">Raider</span>
+          <span class="card-sku">LA47</span>
+        </div>
+        <div class="card-cat-label">Industrial Degreaser</div>
+        <div class="card-desc" translate="no" spellcheck="false">Heavy-duty alkaline degreaser for industrial soils, oil and grime on hard surfaces across warehouse and plant environments. Concentrated formula, economical to use.</div>
+        <div class="card-foot">
+          <span class="card-foot-label">Sizes</span>
+          <span class="t-size">5L</span>
+          <span class="t-size">25L</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="pg-foot">
+    <span class="pg-foot-web">advancechemicals.com.au</span>
+    <span class="pg-foot-num">Pg 2.</span>
+  </div>
+
+</div>
+
+<script>
+  function stripAnnotations(root) {
+    (root || document).querySelectorAll('a:not([href^="http"]):not([href^="#"])').forEach(a => {
+      const span = document.createElement('span');
+      span.style.cssText = 'color:inherit;text-decoration:none;';
+      span.innerHTML = a.innerHTML;
+      a.replaceWith(span);
+    });
+  }
+  stripAnnotations();
+  document.addEventListener('DOMContentLoaded', () => stripAnnotations());
+  const obs = new MutationObserver(muts =>
+    muts.forEach(m => m.addedNodes.forEach(n => {
+      if (n.nodeType === 1) stripAnnotations(n.tagName === 'A' ? n.parentElement : n);
+    }))
+  );
+  document.addEventListener('DOMContentLoaded', () =>
+    obs.observe(document.body, { subtree: true, childList: true })
+  );
+</script>
+</body>
+</html>
