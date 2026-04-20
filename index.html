@@ -503,6 +503,89 @@
     }
 
     /* ═══════════════════════════════════════════════════════
+       BENEFITS PAGE
+    ═══════════════════════════════════════════════════════ */
+    .ben-bg-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .ben-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(22, 18, 72, 0.72);
+    }
+    .ben-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 55px 52px 48px;
+    }
+    .ben-headline {
+      font-family: 'ITCAvantGardePro-Demi', sans-serif;
+      font-weight: normal;
+      font-size: 64px;
+      line-height: 1.0;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      padding-top: 32px;
+    }
+    .ben-spacer { flex: 1; }
+    .ben-benefits { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+    .ben-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,0.25);
+    }
+    .ben-icon {
+      width: 62px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ben-icon img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    .ben-icon-badge {
+      width: 52px;
+      height: 52px;
+      border: 2px solid rgba(255,255,255,0.85);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'ITCAvantGardeBold', sans-serif;
+      font-size: 22px;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+    .ben-text { flex: 1; }
+    .ben-heading {
+      font-family: 'ITCAvantGardePro-Demi', sans-serif;
+      font-size: 15px;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .ben-body {
+      font-family: 'ITCAvantGardeStd-BkCn', sans-serif;
+      font-size: 11px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════
        ABOUT PAGE
     ═══════════════════════════════════════════════════════ */
     .about-quote-section {
@@ -784,7 +867,7 @@ const PRODUCTS = [
 
   // ── Air Care & Deodorising ────────────────────────────────────────────
   { name:"Room Deodoriser",    sku:"LN301",   cat:"Air Care & Deodorising",     sizes:["5LT"],                 img:IMG+"2022/09/ROOM-DEODORISER-min-1-510x680.png",                  desc:"Odour-neutralising concentrate. Use neat via hand sprayer on rooms, carpets and fabrics. Absorbs musty and unpleasant smells." , specs: [ { icon:'dilution', value:'1:10 Dilution' }, { icon:'ph', value:'pH 7–9' }, { icon:'use', value:'Odour Control' } ], tags: ['concentrate','rtu'] },
-  { name:"Fresha Deotabs",     sku:"PO797",   cat:"Air Care & Deodorising",     sizes:["EA"],                  img:null,                                                              desc:"Urinal and toilet deodorant blocks in spruce fragrance. Up to 30 days of continuous odour control in bathroom and washroom areas." , specs: [ { icon:'dilution', value:'Ready To Use' }, { icon:'ph', value:'pH 7' }, { icon:'use', value:'Urinal & Toilet' } ], tags: ['commercial','rtu'] },
+  { name:"Fresha Deotabs",     sku:"PO797",   cat:"Air Care & Deodorising",     sizes:["EA"],                  img:"https://diggersaustralia.com.au/wp-content/uploads/2018/10/Fresha-Deodorant-Blocks.jpg",                                                              desc:"Urinal and toilet deodorant blocks in spruce fragrance. Up to 30 days of continuous odour control in bathroom and washroom areas." , specs: [ { icon:'dilution', value:'Ready To Use' }, { icon:'ph', value:'pH 7' }, { icon:'use', value:'Urinal & Toilet' } ], tags: ['commercial','rtu'] },
 
   // ── Food Safety & Produce ─────────────────────────────────────────────
   { name:"Vegie Wash",         sku:"LB92V",   cat:"Food Safety & Produce",      sizes:["1LT"],                 img:"https://advancechemicals.com.au/wp-content/uploads/2018/05/veg-clean-resize.jpg", desc:"Food-grade produce wash removes pesticide residues and wax from fresh produce. FSANZ-compliant for food contact surfaces." , specs: [ { icon:'dilution', value:'1:100 Dilution' }, { icon:'ph', value:'pH 6–8' }, { icon:'use', value:'Produce Wash' } ], tags: ['food-safe','rtu'] },
@@ -1035,6 +1118,52 @@ function buildBack() {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   BENEFITS PAGE
+═══════════════════════════════════════════════════════════ */
+function buildBenefitsPage() {
+  return `
+<div class="page" style="background:#263681; position:relative; overflow:hidden;">
+  <img class="ben-bg-photo" src="images/advance1.webp" alt="">
+  <div class="ben-overlay"></div>
+  <div class="ben-content">
+    <div style="flex: 0 0 215px;"></div>
+    <div class="ben-headline">Formulated to<br>Perform.</div>
+    <div class="ben-spacer"></div>
+    <div class="ben-benefits">
+      <div class="ben-row">
+        <div class="ben-icon" style="height:52px;">
+          <img src="brand_assets/LRQA CERTIFIED LOGO.png" alt="LRQA Certified">
+        </div>
+        <div class="ben-text">
+          <div class="ben-heading">LRQA Certified</div>
+          <div class="ben-body">ISO 9001 quality management certified, ensuring consistent product standards across every batch.</div>
+        </div>
+      </div>
+      <div class="ben-row">
+        <div class="ben-icon">
+          <div class="ben-icon-badge">45</div>
+        </div>
+        <div class="ben-text">
+          <div class="ben-heading">45 Years</div>
+          <div class="ben-body">Established in 1981, providing nearly half a century of chemical formulation experience.</div>
+        </div>
+      </div>
+      <div class="ben-row">
+        <div class="ben-icon" style="height:54px;">
+          <img src="brand_assets/Australian%20Made%20%26%20Owned%20-%20White%20LOGO.png" alt="Australian Made &amp; Owned">
+        </div>
+        <div class="ben-text">
+          <div class="ben-heading">100% Aussie</div>
+          <div class="ben-body">Proudly manufacturing in Melbourne (Altona) since day one.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════
    SLOGAN PAGE
 ═══════════════════════════════════════════════════════════ */
 function buildAboutPage() {
@@ -1056,7 +1185,7 @@ function buildAboutPage() {
       <p class="about-col-body">Advance Chemicals delivers professional-grade cleaning solutions engineered for the commercial sector. We combine high-performance chemistry with a commitment to safety and sustainability, ensuring your facility stays pristine and compliant.</p>
     </div>
     <div class="about-col">
-      <p class="about-col-heading">Economic Cleaning.</p>
+      <p class="about-col-heading">Economic Cleaning?</p>
       <p class="about-col-body">In the commercial cleaning industry, logistics and storage are hidden costs. Our ultra-concentrated formulas are engineered to work harder with less, allowing you to turn a single 5L container into hundreds of liters of ready-to-use solution.</p>
     </div>
   </div>
@@ -1173,8 +1302,9 @@ function buildQuotePage(pgNum) {
 
   document.getElementById('catalog').innerHTML = [
     buildCover(),
-    buildContentsPage(catPageNums),
+    buildBenefitsPage(),
     buildAboutPage(),
+    buildContentsPage(catPageNums),
     ...catHtml,
     buildOutroPage(),
   ].join('\n');
