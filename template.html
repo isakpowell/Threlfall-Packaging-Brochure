@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advance Chemicals — Degreaser &amp; Cleaners</title>
+  <meta name="format-detection" content="telephone=no,address=no,email=no,date=no">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'ITCAvantGardePro-Demi';
+      src: url('FontFamily/ITCAvantGardePro-Demi.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'ITCAvantGardePro-Bk';
+      src: url('FontFamily/ITCAvantGardePro-Bk.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'ITCAvantGardeStd-BkCn';
+      src: url('FontFamily/ITCAvantGardeStd-BkCn.otf') format('opentype');
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    a, a:link, a:visited, a:-webkit-any-link {
+      color: inherit !important;
+      text-decoration: none !important;
+      pointer-events: none;
+    }
+
+    .product-desc, .product-desc * {
+      color: #555E6B !important;
+      text-decoration: none !important;
+      background: transparent !important;
+      border: none !important;
+    }
+
+    body {
+      background: #C8C7C5;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      min-height: 100vh;
+    }
+
+    .page {
+      background: #FFFFFF;
+      width: 595px;
+      min-height: 842px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ──────────────────────────────────── */
+
+    .page-header {
+      background: #263681;
+      padding: 20px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-title {
+      font-family: 'ITCAvantGardePro-Demi', sans-serif;
+      font-size: 28px;
+      white-space: nowrap;
+      font-weight: normal;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+
+    .header-subtitle {
+      font-family: 'ITCAvantGardePro-Bk', sans-serif;
+      font-size: 18px;
+      font-weight: normal;
+      color: #FFFFFF;
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+
+    .header-logos {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .header-logos img {
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ── FOOTER ──────────────────────────────────── */
+
+    .page-footer {
+      background: #263681;
+      padding: 7px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      flex-shrink: 0;
+    }
+
+    .footer-web {
+      font-family: 'ITCAvantGardeStd-BkCn', sans-serif;
+      font-size: 12px;
+      color: #FFFFFF;
+      letter-spacing: 0.02em;
+    }
+
+    .footer-num {
+      font-family: 'ITCAvantGardeStd-BkCn', sans-serif;
+      font-size: 12px;
+      color: #FFFFFF;
+    }
+
+    /* ── PRODUCT LIST ─────────────────────────────── */
+
+    .product-row {
+      display: flex;
+      align-items: flex-start;
+      padding: 36px 18px;
+      border-bottom: 1px solid #D5D3D0;
+      gap: 24px;
+    }
+
+    .product-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .product-img-wrap {
+      width: 200px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-img-wrap img {
+      max-width: 200px;
+      max-height: 240px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .product-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-name-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .product-title {
+      font-family: 'ITCAvantGardePro-Demi', sans-serif;
+      font-size: 22px;
+      font-weight: normal;
+      color: #3C3C3C;
+    }
+
+    .product-code {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: #3C3C3C;
+    }
+
+    .product-desc {
+      font-family: 'ITCAvantGardeStd-BkCn', sans-serif;
+      font-size: 13px;
+      color: #555E6B;
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .product-specs {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .spec-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: #8A919A;
+    }
+
+    .spec-icon {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      color: #8A919A;
+    }
+
+    .product-tags {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .product-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 3px;
+      letter-spacing: 0.02em;
+    }
+
+    .tag-food-safe  { background: #E8F5E9; color: #2E7D32; }
+    .tag-concentrate { background: #FFF3E0; color: #C84B00; }
+    .tag-rtu        { background: #E3F2FD; color: #1565C0; }
+    .tag-industrial { background: #ECEFF1; color: #455A64; }
+    .tag-commercial { background: #EDE7F6; color: #4527A0; }
+
+    .size-pills {
+      display: flex;
+      gap: 6px;
+    }
+
+    .size-pill {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #FFFFFF;
+      background: #00AEEF;
+      padding: 4px 13px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="page-header">
+      <div>
+        <h1 class="header-title">Degreaser &amp; Cleaners</h1>
+        <p class="header-subtitle">Powerful formulas for cutting through grease.</p>
+      </div>
+      <div class="header-logos">
+        <img src="brand_assets/Australian%20Made%20%26%20Owned%20-%20White%20LOGO.png" alt="Australian Made &amp; Owned">
+        <img src="brand_assets/LRQA%20CERTIFIED%20LOGO.png" alt="LRQA Certified">
+      </div>
+    </header>
+
+    <div class="product-row">
+      <div class="product-img-wrap">
+        <img src="sample_product_images/Adwash%20LF%205L.png" alt="Adwash LF">
+      </div>
+      <div class="product-info">
+        <div class="product-name-row">
+          <span class="product-title">Sabre</span>
+          <span class="product-code">LC777</span>
+        </div>
+        <p class="product-desc" translate="no" spellcheck="false">Chlorinated, caustic dishwashing machine detergent. This is the decscription using Inter.</p>
+        <div class="product-specs">
+          <div class="spec-item">
+            <svg class="spec-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2C8 2 3.5 8 3.5 11a4.5 4.5 0 0 0 9 0C12.5 8 8 2 8 2z"/></svg>
+            <span>1:80 Dilution</span>
+          </div>
+          <div class="spec-item">
+            <svg class="spec-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v5L3 11a2.5 2.5 0 0 0 2.2 3.5h5.6A2.5 2.5 0 0 0 13 11L10 6V1"/><line x1="5.5" y1="1" x2="10.5" y2="1"/></svg>
+            <span>pH 13.5</span>
+          </div>
+          <div class="spec-item">
+            <svg class="spec-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="4" height="7"/><rect x="10" y="3" width="4" height="11"/><line x1="1" y1="14" x2="15" y2="14"/><path d="M6 10h4"/></svg>
+            <span>Commercial Kitchen</span>
+          </div>
+        </div>
+        <div class="product-tags">
+          <span class="product-tag tag-concentrate">Concentrate</span>
+          <span class="product-tag tag-commercial">Commercial</span>
+        </div>
+        <div class="size-pills">
+          <span class="size-pill">5L</span>
+          <span class="size-pill">25L</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <div class="product-img-wrap">
+        <img src="sample_product_images/Apple%20Detergent%205L.png" alt="Apple Detergent">
+      </div>
+      <div class="product-info">
+        <div class="product-name-row">
+          <span class="product-title">Sabre</span>
+          <span class="product-code">LC777</span>
+        </div>
+        <p class="product-desc" translate="no" spellcheck="false">Chlorinated, caustic dishwashing machine detergent. This is the decscription using Inter.</p>
+        <div class="product-specs">
+          <div class="spec-item">
+            <svg class="spec-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2C8 2 3.5 8 3.5 11a4.5 4.5 0 0 0 9 0C12.5 8 8 2 8 2z"/></svg>
+            <span>1:20 Dilution</span>
+          </div>
+          <div class="spec-item">
+            <svg class="spec-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v5L3 11a2.5 2.5 0 0 0 2.2 3.5h5.6A2.5 2.5 0 0 0 13 11L10 6V1"/><line x1="5.5" y1="1" x2="10.5" y2="1"/></svg>
+            <span>pH 7.5</span>
+          </div>
+          <div class="spec-item">
+            <svg class="spec-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="4" height="7"/><rect x="10" y="3" width="4" height="11"/><line x1="1" y1="14" x2="15" y2="14"/><path d="M6 10h4"/></svg>
+            <span>General Purpose</span>
+          </div>
+        </div>
+        <div class="product-tags">
+          <span class="product-tag tag-concentrate">Concentrate</span>
+          <span class="product-tag tag-food-safe">Food Safe</span>
+        </div>
+        <div class="size-pills">
+          <span class="size-pill">5L</span>
+          <span class="size-pill">25L</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <div class="product-img-wrap">
+        <img src="sample_product_images/LCD%205L.png" alt="LCD">
+      </div>
+      <div class="product-info">
+        <div class="product-name-row">
+          <span class="product-title">Sabre</span>
+          <span class="product-code">LC777</span>
+        </div>
+        <p class="product-desc" translate="no" spellcheck="false">Chlorinated, caustic dishwashing machine detergent. This is the decscription using Inter.</p>
+        <div class="product-specs">
+          <div class="spec-item">
+            <svg class="spec-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2C8 2 3.5 8 3.5 11a4.5 4.5 0 0 0 9 0C12.5 8 8 2 8 2z"/></svg>
+            <span>Ready to Use</span>
+          </div>
+          <div class="spec-item">
+            <svg class="spec-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v5L3 11a2.5 2.5 0 0 0 2.2 3.5h5.6A2.5 2.5 0 0 0 13 11L10 6V1"/><line x1="5.5" y1="1" x2="10.5" y2="1"/></svg>
+            <span>pH 9.0</span>
+          </div>
+          <div class="spec-item">
+            <svg class="spec-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="4" height="7"/><rect x="10" y="3" width="4" height="11"/><line x1="1" y1="14" x2="15" y2="14"/><path d="M6 10h4"/></svg>
+            <span>Industrial</span>
+          </div>
+        </div>
+        <div class="product-tags">
+          <span class="product-tag tag-rtu">Ready to Use</span>
+          <span class="product-tag tag-industrial">Industrial</span>
+        </div>
+        <div class="size-pills">
+          <span class="size-pill">5L</span>
+          <span class="size-pill">25L</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      <span class="footer-web">advancechemicals.com.au</span>
+      <span class="footer-num">3</span>
+    </footer>
+
+  </div>
+
+<script>
+  (function stripAnnotations(root) {
+    (root || document).querySelectorAll('a').forEach(a => {
+      const span = document.createElement('span');
+      span.style.cssText = 'color:inherit;text-decoration:none;';
+      span.innerHTML = a.innerHTML;
+      a.replaceWith(span);
+    });
+  })();
+  const obs = new MutationObserver(muts =>
+    muts.forEach(m => m.addedNodes.forEach(n => {
+      if (n.nodeType === 1) {
+        const root = n.tagName === 'A' ? n.parentElement : n;
+        if (root.querySelectorAll) root.querySelectorAll('a').forEach(a => {
+          const span = document.createElement('span');
+          span.style.cssText = 'color:inherit;text-decoration:none;';
+          span.innerHTML = a.innerHTML;
+          a.replaceWith(span);
+        });
+      }
+    }))
+  );
+  obs.observe(document.body, { subtree: true, childList: true });
+</script>
+</body>
+</html>

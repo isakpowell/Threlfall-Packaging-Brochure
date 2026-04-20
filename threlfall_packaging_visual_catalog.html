@@ -1,0 +1,156 @@
+
+<style>
+* { box-sizing: border-box; }
+.cat-btn { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 5px 12px; font-size: 12px; cursor: pointer; color: var(--color-text-primary); white-space: nowrap; }
+.cat-btn.active { background: #E6F1FB; color: #0C447C; border-color: #85B7EB; }
+.cat-btn:hover:not(.active) { border-color: var(--color-border-secondary); }
+.prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.prod-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; display: flex; flex-direction: column; }
+.prod-img { width: 100%; aspect-ratio: 1; object-fit: contain; background: var(--color-background-secondary); padding: 12px; }
+.prod-img-placeholder { width: 100%; aspect-ratio: 1; background: var(--color-background-secondary); display: flex; align-items: center; justify-content: center; }
+.prod-body { padding: 10px 12px 12px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.prod-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); line-height: 1.3; }
+.prod-desc { font-size: 11px; color: var(--color-text-secondary); line-height: 1.45; flex: 1; }
+.prod-meta { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.sku-tag { font-size: 10px; font-family: var(--font-mono); background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: 4px; padding: 2px 5px; }
+.size-tag { font-size: 10px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: 4px; padding: 2px 5px; }
+.cat-header { margin-bottom: 10px; padding-left: 2px; }
+.cat-title { font-size: 11px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+.cat-sub { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4; }
+.search-bar { font-size: 13px; max-width: 280px; }
+.no-img-box { width: 100%; aspect-ratio: 1; background: var(--color-background-secondary); display: flex; align-items: center; justify-content: center; }
+.no-img-icon { width: 36px; height: 36px; opacity: 0.18; }
+</style>
+
+<h2 class="sr-only">Threlfall Packaging visual product catalog with images and descriptions from Advance Chemicals</h2>
+
+<div style="padding: 1rem 0 0;">
+  <div style="margin-bottom: 12px;">
+    <input class="search-bar" type="text" id="search" placeholder="Search products..." oninput="render()" />
+  </div>
+  <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem;" id="cat-filters"></div>
+  <div id="catalog"></div>
+</div>
+
+<script>
+const BASE = "https://advancechemicals.com.au/wp-content/uploads/";
+
+const products = [
+  { name: "Sabre", sku: "LC777", cat: "Degreasers & Cleaners", sizes: ["5LT","20LT"], img: BASE+"2022/09/777-5-Sabre-min-510x510.png", desc: "Chlorinated, caustic dishwashing machine detergent designed for economical use in a commercial kitchen setting." },
+  { name: "Grill Supreme", sku: "LC305", cat: "Degreasers & Cleaners", sizes: ["5LT","25LT"], img: BASE+"2022/09/0e60fb41-7286-4d5d-aa5b-2648e5de834e-510x510.png", desc: "Powerful caustic cleaner for ovens, cooking ranges, hot plates and deep fryers. Removes stubborn baked-on fats and oils." },
+  { name: "LCD", sku: "LC622", cat: "Degreasers & Cleaners", sizes: ["5LT","25LT"], img: BASE+"2022/09/LCD-5L-510x510.png", desc: "High performance alkaline detergent for removal of fats, greases and oils. Suitable for food processing, kitchens and automotive." },
+  { name: "Triple Clean", sku: "LB43", cat: "Degreasers & Cleaners", sizes: ["5LT","25LT"], img: BASE+"2022/09/43-Triple-Clean-min-510x510.png", desc: "All-purpose cleaner, deodorant and disinfectant for hygienically cleaning floors, walls, toilets and washroom areas." },
+  { name: "Raider", sku: "LA47", cat: "Degreasers & Cleaners", sizes: ["5LT","25LT"], img: null, desc: "Heavy-duty alkaline cleaner and degreaser for industrial soils, grease and grime on hard surfaces." },
+  { name: "Chloroclean", sku: "LC791", cat: "Degreasers & Cleaners", sizes: ["25LT"], img: null, desc: "High foaming chlorinated caustic-alkaline sanitiser for food processing and commercial cleaning applications." },
+  { name: "Panther", sku: "LB879", cat: "Degreasers & Cleaners", sizes: ["25LT"], img: null, desc: "Water-based detergent using alkaline salts and solvent degreaser blend. Removes greases, oils and soil in warehouses and industry." },
+  { name: "D'Grease It No. 2", sku: "Q3209", cat: "Degreasers & Cleaners", sizes: ["20LT"], img: null, desc: "Industrial strength degreaser formulated to cut through heavy grease, oil and grime on hard surfaces." },
+  { name: "Ten-4 Truck Wash", sku: "LN3207", cat: "Degreasers & Cleaners", sizes: ["5LT"], img: null, desc: "Truck and vehicle wash concentrate for removing road grime, grease and heavy soiling from vehicle exteriors." },
+
+  { name: "Apple Detergent", sku: "LN41A", cat: "Detergents & Laundry", sizes: ["5LT","20LT"], img: "https://advancechemicals.com.au/wp-content/uploads/2013/11/Apple-Detergent-5L.png", desc: "Medium duty dishwashing liquid and general purpose detergent. Can also be used as a soak for dishes." },
+  { name: "Super Detergent", sku: "LN41", cat: "Detergents & Laundry", sizes: ["5LT","25LT"], img: BASE+"2025/10/Super-Detergent-510x510.jpg", desc: "Lemon scented manual dishwashing detergent. Concentrated surfactants cut through grease and food soils without irritating skin." },
+  { name: "Liquid Laundry", sku: "LB454", cat: "Detergents & Laundry", sizes: ["25LT"], img: null, desc: "Premium quality liquid laundry detergent that cleans in hot or cold water, suitable for front and top loading machines." },
+  { name: "Blue Wave", sku: "PB39", cat: "Detergents & Laundry", sizes: ["20KG Pail"], img: null, desc: "Powder laundry detergent combining powerful salts, surfactants and water softeners to remove stubborn soils." },
+  { name: "Powder Expresso", sku: "PB1572", cat: "Detergents & Laundry", sizes: ["1KG"], img: null, desc: "Specialised powder detergent for commercial and institutional laundry applications." },
+  { name: "Nappy Wash Bag", sku: "PB191", cat: "Detergents & Laundry", sizes: ["5KG"], img: null, desc: "Soaking compound for nappy and linen hygiene in childcare and healthcare environments." },
+  { name: "Aquarius", sku: "PB111", cat: "Detergents & Laundry", sizes: ["5KG"], img: null, desc: "Chlorinated alkaline dishwashing machine powder for commercial use." },
+
+  { name: "Adsan LN1736", sku: "LN1736", cat: "Sanitisers & Disinfectants", sizes: ["5LT","25LT"], img: BASE+"2025/10/ADSAN-1736-2-510x510.jpg", desc: "Non-rinse sanitiser for food contact surfaces including cutlery, chopping boards and dishware. Ready to use with added detergent." },
+  { name: "Adsan LN1856", sku: "LN1856", cat: "Sanitisers & Disinfectants", sizes: ["5LT","25LT"], img: BASE+"2020/05/ADSAN-1856-5L-Photo-510x510.png", desc: "Hospital grade disinfectant and sanitiser. Ready to use on porous and non-porous surfaces. TGA listed, kills COVID-19." },
+  { name: "Adsan LN878", sku: "LN878", cat: "Sanitisers & Disinfectants", sizes: ["5LT"], img: null, desc: "Concentrated quaternary-ammonium based sanitiser (10% active) for food contact surfaces. Requires dilution before use." },
+  { name: "Bleach 4%", sku: "LB92", cat: "Sanitisers & Disinfectants", sizes: ["5LT","25LT"], img: BASE+"2022/09/7dce491c-f7ed-4d93-9ec7-9007513c7fac-510x510.png", desc: "Liquid chlorine (4%) sanitiser, bleach and deodoriser. Removes stubborn stains, sanitises and deodorises. Suitable for surfaces and laundry." },
+  { name: "Sani Hands", sku: "LS1107", cat: "Sanitisers & Disinfectants", sizes: ["500ML","5LT"], img: BASE+"2022/09/1107-Sani-Hands-25LT-min-3-510x680.png", desc: "Sanitising gel containing 70% ethanol. Self-drying, no rinsing required. Suitable for food and allied industries." },
+
+  { name: "Lemint", sku: "LN22", cat: "Floor & Surface Care", sizes: ["5LT","25LT"], img: BASE+"2022/09/05c63fe2-bca6-4c62-97a3-ef778efc502a-510x510.png", desc: "Quaternary ammonium based disinfectant with lemon scent. Powerful re-odouriser and general-purpose cleaner for commercial and industrial use." },
+  { name: "Eucy Clean", sku: "LN1569", cat: "Floor & Surface Care", sizes: ["5LT","25LT"], img: null, desc: "Eucalyptus-based surface cleaner and deodoriser. Cuts through grease and grime while leaving a fresh, clean scent." },
+  { name: "Citrasoft", sku: "LN889", cat: "Floor & Surface Care", sizes: ["5LT","25LT"], img: BASE+"2022/09/2a092f29-283f-4db4-a441-e9e4ac1f10d4-510x510.png", desc: "Degreasing hand wash with orange oil and polybeads. Removes dirt, oil and grease without petroleum solvents or harsh alkalis." },
+  { name: "Top Shelf", sku: "LB178", cat: "Floor & Surface Care", sizes: ["5LT"], img: null, desc: "General purpose cleaner for use on a wide range of hard surfaces in commercial environments." },
+  { name: "Descale", sku: "PA1178", cat: "Floor & Surface Care", sizes: ["5KG"], img: null, desc: "Acid-based descaling compound for removing limescale, mineral deposits and build-up from equipment and surfaces." },
+  { name: "Caustic Soda", sku: "PC363", cat: "Floor & Surface Care", sizes: ["5KG"], img: null, desc: "Industrial strength caustic soda for heavy-duty cleaning, drain clearing and grease removal." },
+
+  { name: "Window Cleaner", sku: "LB46", cat: "Glass & Window Cleaning", sizes: ["5LT","25LT"], img: BASE+"2022/09/46-Window-Cleaner-min-1-510x510.png", desc: "Spray and wipe cleaner for glass, plastics, laminates and stainless steel. Not recommended on painted surfaces or car duco." },
+
+  { name: "Pink Pearl", sku: "LN772", cat: "Hand & Body Care", sizes: ["5LT","25LT"], img: null, desc: "Gentle liquid hand soap with lotionised conditioner. Neutral pH and skin conditioners leave hands feeling soft and supple." },
+  { name: "Pink Pearl Foam", sku: "LN1556", cat: "Hand & Body Care", sizes: ["4x800ML CTN"], img: null, desc: "Foaming hand soap in 800ml pouches for wall-mounted dispensers. Gentle formula for high-frequency hand washing environments." },
+  { name: "Body Wash", sku: "LN53U", cat: "Hand & Body Care", sizes: ["5LT"], img: null, desc: "Hands, hair and body wash suitable for Brightwell dispensers in aged care, schools and health facilities." },
+  { name: "Sani Hands BW", sku: "4F", cat: "Hand & Body Care", sizes: ["800ML"], img: null, desc: "70% ethanol hand sanitiser in 800ml pouches for Brightwell dispensers. Sold in carton of 4." },
+  { name: "Industrial Methylated Spirits", sku: "IMS", cat: "Hand & Body Care", sizes: ["BOT"], img: null, desc: "Industrial methylated spirits for general purpose cleaning, disinfection and solvent applications." },
+
+  { name: "Rinse Aid", sku: "LA102", cat: "Rinse Aid & Dishwashing", sizes: ["5LT","20LT"], img: BASE+"2013/11/Rinse-Aid-LN102-510x510.jpg", desc: "Machine dishwasher rinse additive. Reduces drying time and eliminates spotting on dishes, cutlery and glassware." },
+  { name: "Sundance", sku: "LN36", cat: "Rinse Aid & Dishwashing", sizes: ["5LT"], img: BASE+"2025/10/SUNDANCE-LN36-5L-510x510.jpg", desc: "Cream liquid hard surface abrasive cleaner. Removes oil, grease and soil from glass, metal and enamel with a polishing action." },
+
+  { name: "Room Deodoriser", sku: "LN301", cat: "Air Care & Deodorising", sizes: ["5LT"], img: BASE+"2022/09/ROOM-DEODORISER-min-1-510x680.png", desc: "Absorbs unpleasant and musty smells with odour-neutralising compounds. Use neat via hand sprayer on rooms, carpets and fabric." },
+  { name: "Fresha Deotabs (Spruce)", sku: "PO797", cat: "Air Care & Deodorising", sizes: ["EA"], img: null, desc: "Toilet and urinal deodorant tabs in spruce fragrance. Long-lasting odour control for bathroom and washroom areas." },
+];
+
+const catMeta = {
+  "Degreasers & Cleaners":      { color: "#185FA5", sub: "Powerful formulas for cutting through grease, grime and industrial soils" },
+  "Detergents & Laundry":       { color: "#3B6D11", sub: "Everyday washing solutions for fabrics, dishes and general cleaning" },
+  "Sanitisers & Disinfectants": { color: "#993C1D", sub: "Hospital-grade sanitising products that kill bacteria and viruses" },
+  "Floor & Surface Care":       { color: "#534AB7", sub: "Concentrated cleaners to maintain and deodorise floors and hard surfaces" },
+  "Glass & Window Cleaning":    { color: "#0F6E56", sub: "Streak-free formulas for glass, mirrors and windows" },
+  "Hand & Body Care":           { color: "#993556", sub: "Soaps, washes and foams for personal hygiene in workplace environments" },
+  "Rinse Aid & Dishwashing":    { color: "#854F0B", sub: "Spotless rinse aids and dishwashing solutions for commercial kitchens" },
+  "Air Care & Deodorising":     { color: "#5F5E5A", sub: "Odour-neutralising products that keep facilities smelling fresh" },
+};
+
+const cats = [...new Set(products.map(p => p.cat))];
+let activeCat = "All";
+
+const filterEl = document.getElementById("cat-filters");
+[{label:"All"}, ...cats.map(c=>({label:c}))].forEach(({label}) => {
+  const b = document.createElement("button");
+  b.className = "cat-btn" + (label === "All" ? " active" : "");
+  b.textContent = label === "All" ? "All products" : label;
+  b.onclick = () => { activeCat = label; document.querySelectorAll(".cat-btn").forEach(x => x.classList.toggle("active", x.textContent === b.textContent)); render(); };
+  filterEl.appendChild(b);
+});
+
+function imgOrPlaceholder(src, name) {
+  if (!src) return `<div class="no-img-box"><svg class="no-img-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>`;
+  return `<img class="prod-img" src="${src}" alt="${name}" onerror="this.outerHTML='<div class=no-img-box><svg class=no-img-icon viewBox=\\'0 0 24 24\\' fill=none stroke=currentColor stroke-width=1.5><rect x=3 y=3 width=18 height=18 rx=2/><circle cx=8.5 cy=8.5 r=1.5/><path d=\\'M21 15l-5-5L5 21\\'/></svg></div>'" />`;
+}
+
+function render() {
+  const q = document.getElementById("search").value.toLowerCase();
+  const grouped = {};
+  products.forEach(p => {
+    const matchCat = activeCat === "All" || p.cat === activeCat;
+    const matchQ = !q || p.name.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
+    if (matchCat && matchQ) {
+      if (!grouped[p.cat]) grouped[p.cat] = [];
+      grouped[p.cat].push(p);
+    }
+  });
+
+  let html = "";
+  const total = Object.values(grouped).reduce((s,a) => s+a.length, 0);
+  if (total === 0) { html = `<p style="color:var(--color-text-secondary);font-size:14px;padding:1rem 0;">No products match your search.</p>`; }
+  else {
+    Object.entries(grouped).forEach(([cat, items]) => {
+      const m = catMeta[cat] || { color: "#444", sub: "" };
+      html += `<div style="margin-bottom:2rem;">
+        <div class="cat-header">
+          <div class="cat-title" style="color:${m.color};">${cat}</div>
+          <div class="cat-sub">${m.sub}</div>
+        </div>
+        <div class="prod-grid">`;
+      items.forEach(p => {
+        html += `<div class="prod-card">
+          ${imgOrPlaceholder(p.img, p.name)}
+          <div class="prod-body">
+            <div class="prod-name">${p.name}</div>
+            <div class="prod-desc">${p.desc}</div>
+            <div class="prod-meta">
+              <span class="sku-tag">${p.sku}</span>
+              ${p.sizes.map(s=>`<span class="size-tag">${s}</span>`).join("")}
+            </div>
+          </div>
+        </div>`;
+      });
+      html += `</div></div>`;
+    });
+  }
+  document.getElementById("catalog").innerHTML = html;
+}
+render();
+</script>

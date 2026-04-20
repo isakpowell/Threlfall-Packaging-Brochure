@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advance Chemicals – Title Page</title>
+<style>
+  @font-face {
+    font-family: 'ITCAvantGardeBold';
+    src: url('FontFamily/ITCAvantGardePro-Bold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'ITCAvantGardeDemi';
+    src: url('FontFamily/ITCAvantGardePro-Demi.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'ITCAvantGardeCn';
+    src: url('FontFamily/ITCAvantGardeStd-BkCn.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'ITCAvantGardeDemiCn';
+    src: url('FontFamily/ITCAvantGardeStd-DemiCn.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    background: #888;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px;
+  }
+
+  .page {
+    width: 595px;
+    height: 842px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Blue top section ── */
+  .blue-section {
+    background: #263681;
+    flex: 0 0 620px;
+    position: relative;
+    padding: 80px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .main-title {
+    font-family: 'ITCAvantGardeBold', sans-serif;
+    font-weight: normal;
+    font-size: 77px;
+    line-height: 1.0;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Decorative shapes */
+  .deco-shapes {
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    right: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    z-index: 1;
+  }
+
+  .deco-shape {
+    width: 100%;
+    height: calc(595px / 3 + 60px);
+    background: #1e2d6e;
+    border-radius: 90px 0 0 0;
+  }
+
+  /* Middle content row */
+  .mid-row {
+    position: absolute;
+    bottom: 54px;
+    left: 32px;
+    right: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+  }
+
+  .catalogue-label {
+    font-family: 'ITCAvantGardeDemi', sans-serif;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 1.15;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+
+  .ac-logo-box {
+    width: 90px;
+    height: 90px;
+    background: #ffffff;
+    border-radius: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .ac-logo-inner {
+    width: 100%;
+    height: 100%;
+    background: #223070;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ac-logo-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* ── Blue bottom section (outro style) ── */
+  .outro-bottom-section {
+    background: #263681;
+    flex: 1;
+    padding: 22px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .outro-info-col { flex: 1; }
+  .outro-info-col + .outro-info-col { padding-left: 24px; }
+
+  .outro-info-heading {
+    font-family: 'ITCAvantGardeDemi', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+
+  .outro-info-body {
+    font-family: 'ITCAvantGardeCn', sans-serif;
+    font-size: 9.5px;
+    color: #ffffff;
+    line-height: 1.55;
+  }
+
+  .outro-logos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-left: 16px;
+  }
+
+  .outro-logos img {
+    height: 46px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Blue top section -->
+  <div class="blue-section">
+
+    <!-- Main headline -->
+    <div class="main-title">
+      Advance<br>Chemicals
+    </div>
+
+    <!-- Decorative bubble shapes -->
+    <div class="deco-shapes">
+      <div class="deco-shape"></div>
+      <div class="deco-shape"></div>
+      <div class="deco-shape"></div>
+    </div>
+
+    <!-- Bottom row: catalogue label + AC logo -->
+    <div class="mid-row">
+      <div class="catalogue-label">
+        Threlfall<br>Product<br>Catalogue
+      </div>
+      <div class="ac-logo-box">
+        <div class="ac-logo-inner">
+          <img src="brand_assets/AdvanceFaviconWhite.png" alt="AC Logo">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Blue bottom section (outro style) -->
+  <div class="outro-bottom-section">
+    <div style="display:flex;align-items:flex-start;width:100%;">
+    <div class="outro-info-col">
+      <p class="outro-info-heading">Customer Service</p>
+      <p class="outro-info-body">
+        (03) 9398 4444<br>
+        sales@advancechemicals.com.au<br>
+        www.advancechemicals.com.au<br>
+        For further information regarding product
+        safety and handling, refer to the Safety
+        Data Sheet and product label.
+      </p>
+    </div>
+    <div class="outro-info-col">
+      <p class="outro-info-heading">For More Products</p>
+      <p class="outro-info-body">
+        Visit our website. Advance Chemicals is a
+        manufacturer of over 1000 formulas. This
+        is just a sample of our range, for sales
+        purposes. Since 1967. We are committed
+        to providing you the best quality for the
+        best price.
+      </p>
+    </div>
+    <div class="outro-logos">
+      <img src="brand_assets/Australian%20Made%20%26%20Owned%20-%20White%20LOGO.png" alt="Australian Made &amp; Owned">
+      <img src="brand_assets/LRQA%20CERTIFIED%20LOGO.png" alt="LRQA Certified">
+    </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

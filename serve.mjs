@@ -18,8 +18,8 @@ const MIME = {
 };
 
 createServer(async (req, res) => {
-  const urlPath = req.url.split('?')[0];
-  const target  = urlPath === '/' ? '/test-page.html' : urlPath;
+  const urlPath = decodeURIComponent(req.url.split('?')[0]);
+  const target  = urlPath === '/' ? '/index.html' : urlPath;
   const file    = join(ROOT, target);
   try {
     const data = await readFile(file);

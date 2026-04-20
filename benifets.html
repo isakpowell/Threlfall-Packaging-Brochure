@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulated to Perform</title>
+<style>
+  @font-face {
+    font-family: 'ITCAvantGarde';
+    src: url('FontFamily/ITCAvantGardePro-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'ITCAvantGardeDemi';
+    src: url('FontFamily/ITCAvantGardePro-Demi.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'ITCAvantGardeCn';
+    src: url('FontFamily/ITCAvantGardeStd-BkCn.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    background: #888;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px;
+  }
+
+  .page {
+    position: relative;
+    width: 595px;
+    height: 842px;
+    overflow: hidden;
+    background: #263681;
+    flex-shrink: 0;
+  }
+
+  .bg-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+
+  .bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(22, 18, 72, 0.72);
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 55px 52px 48px;
+  }
+
+  /* ── Hero headline ── */
+  .headline {
+    font-family: 'ITCAvantGardeDemi', sans-serif;
+    font-weight: normal;
+    font-size: 64px;
+    line-height: 1.0;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin-top: auto;
+    padding-top: 32px;
+  }
+
+  .spacer { flex: 1; }
+
+  /* ── Benefits rows ── */
+  .benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+  }
+
+  .benefit-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .benefit-icon {
+    width: 62px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .benefit-icon img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  .icon-45 {
+    width: 52px;
+    height: 52px;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'ITCAvantGarde', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .benefit-text { flex: 1; }
+
+  .benefit-heading {
+    font-family: 'ITCAvantGardeDemi', sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+
+  .benefit-body {
+    font-family: 'ITCAvantGardeCn', sans-serif;
+    font-weight: normal;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- Background photo + overlay -->
+  <img class="bg-photo"
+       src="images/advance1.webp"
+       alt="">
+  <div class="bg-overlay"></div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Push headline down ~38% from top of page -->
+    <div style="flex: 0 0 215px;"></div>
+
+    <div class="headline">
+      Formulated to<br>Perform.
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- Benefits -->
+    <div class="benefits">
+
+      <!-- LRQA Certified -->
+      <div class="benefit-row">
+        <div class="benefit-icon" style="width:62px; height:52px;">
+          <img src="brand_assets/LRQA CERTIFIED LOGO.png" alt="LRQA Certified">
+        </div>
+        <div class="benefit-text">
+          <div class="benefit-heading">LRQA Certified</div>
+          <div class="benefit-body">Proudly manufacturing in Melbourne (Altona) since day one.</div>
+        </div>
+      </div>
+
+      <!-- 45 Years -->
+      <div class="benefit-row">
+        <div class="benefit-icon">
+          <div class="icon-45">45</div>
+        </div>
+        <div class="benefit-text">
+          <div class="benefit-heading">45 Years</div>
+          <div class="benefit-body">Established in 1981, providing nearly half a century of chemical formulation experience.</div>
+        </div>
+      </div>
+
+      <!-- 100% Australian Made -->
+      <div class="benefit-row">
+        <div class="benefit-icon" style="width:62px; height:54px;">
+          <img src="brand_assets/Australian Made & Owned - White LOGO.png" alt="100% Australian Made &amp; Owned">
+        </div>
+        <div class="benefit-text">
+          <div class="benefit-heading">100% Aussie</div>
+          <div class="benefit-body">Proudly manufacturing in Melbourne (Altona) since day one.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
